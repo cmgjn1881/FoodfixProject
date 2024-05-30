@@ -82,20 +82,24 @@ class MenuActivity : BaseActivity() {
             val menuArray = ArrayList<MenuDTO>()
 
             val groupListType: Type = object : TypeToken<ArrayList<MenuDTO?>?>() {}.type
+            val prev = spf.getString("menuList","none") // json list 가져오기
 
-            val prev =spf.getString("menuList","none") // json list 가져오기
-            //val convertedData = gson.toJson(prev)
 
-            if(prev!="none"){ //데이터가 비어있지 않다면?
-                if(prev!="[]" || prev!="")menuArray.addAll(gson.fromJson(prev,groupListType))
+            if (prev != "none") {
+                if (prev != "[]") menuArray.addAll(gson.fromJson(prev, groupListType))
+                val existingMenu = menuArray.find { it.menu_id == menu_id.toString() }
+                if (existingMenu != null) {
+                    existingMenu.quantity = (existingMenu.quantity.toInt() + menu_num.toInt()).toString()
+                    existingMenu.menu_price = (existingMenu.menu_price.toDouble() + menu_price.toDouble()).toString()
+                } else {
+                    menuArray.add(menudata)
+                }
+            } else {
                 menuArray.add(menudata)
-                val strList = gson.toJson(menuArray,groupListType)
-                editor.putString("menuList",strList)
-            }else{
-                menuArray.add(menudata)
-                val strList = gson.toJson(menuArray,groupListType)
-                editor.putString("menuList",strList)
             }
+
+            val strList = gson.toJson(menuArray, groupListType)
+            editor.putString("menuList", strList)
             editor.apply()
 
             val intent = Intent(this@MenuActivity, TakeoutActivity::class.java)

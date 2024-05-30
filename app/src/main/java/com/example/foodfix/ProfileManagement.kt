@@ -71,7 +71,7 @@ class ProfileManagement : BaseActivity() {
         //뒤로가기 버튼
         findViewById<ImageView>(R.id.profilemngback).setOnClickListener {
             // 다이얼로그를 생성하고 설정합니다.
-            val builder = AlertDialog.Builder(this)
+            val builder = AlertDialog.Builder(this, R.style.CustomDialogTheme)
             builder.setTitle("변경된 내용이 저장되지 않습니다")
             builder.setMessage("나가시겠습니까?")
 
@@ -170,7 +170,7 @@ class ProfileManagement : BaseActivity() {
             }
             else{
                 // 다이얼로그를 생성하고 설정합니다.
-                val builder = AlertDialog.Builder(this)
+                val builder = AlertDialog.Builder(this, R.style.CustomDialogTheme)
                 builder.setTitle("프로필 변경")
                 builder.setMessage("저장하시겠습니까?")
 
@@ -227,7 +227,7 @@ class ProfileManagement : BaseActivity() {
 
         findViewById<TextView>(R.id.secede).setOnClickListener {
             // 다이얼로그를 생성하고 설정합니다.
-            val builder = AlertDialog.Builder(this)
+            val builder = AlertDialog.Builder(this, R.style.CustomDialogTheme)
             builder.setTitle("탈퇴")
             builder.setMessage("정말 탈퇴 하시겠습니까?")
 
